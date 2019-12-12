@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+        <title>{% if title %}{{ title }} - Assignment 3 - Barcode Scanner{% else %}Welcome to our Barcode Scanning Tool{% endif %}</title>
+
+    </head>
+    <body>
+        <div id="header">
+            <div id="appname">
+                <h484>SwiftShop</h484>
+            </div>
+
+            <div id="username">
+                <ul>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_file') }}">Upload Barcode</a></li>
+                <li><a href="{{ url_for('browse') }}">Browse Catalogue</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+                </ul>
+            </div>
+            <hr style="clear:both"/>
+        </div>
+
+        <div id="outher" >
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            <div id="content">
+                {% block content %}
+                {% block app_content %}{% endblock %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
+

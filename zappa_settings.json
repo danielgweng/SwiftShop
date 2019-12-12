@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "project_name": "a3_v2",
+  	"keep_warm":false,
+	"debug":true,
+	"log_level":"DEBUG",
+      	"http_methods":["GET","POST"],
+	"parameter_depth":1,
+	"timeout_seconds":300,
+	"memory_size":512,
+	"use_precompiled_packages":true,
+        "s3_bucket": "zappa-w5nm7ic91",
+	"slim_handler": false
+    }
+}

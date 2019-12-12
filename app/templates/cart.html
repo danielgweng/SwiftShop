@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <!--<div class="margin">-->
+    <!--<form action="" method="post">-->
+        <!--{{ form.hidden_tag() }}-->
+        <!--<p> {{ form.submit() }}-->
+        <!--</p>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--<br>-->
+    {% if items %}
+        <h1>Your cart estimation:</h1>
+        <body>
+            <table id="t01">
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+                <tr>
+                  <td colspan="3"><hr/></td>
+                </tr>
+            {% for item in items %}
+            <tr>
+                   <td> {{item['Title'][:32]}}</td>
+                   <td> ${{item['Price']}} </td>
+                    <!--<a href="{{ item['URL'] }}"></a>-->
+            </tr>
+            {% endfor %}
+            <tr>
+                  <td colspan="3"><hr/></td>
+            </tr>
+            <tr>
+                <td> Total</td>
+                <td>{{sum}}</td>
+            </tr>
+            </table>
+        </body>
+    {% endif %}
+{% endblock %}

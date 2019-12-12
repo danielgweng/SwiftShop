@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <head>
+        <style>
+            h3 {
+              display: inline-block;
+            }
+        </style>
+    </head>
+    <h1>Browse Catalogue</h1>
+    {% if barcode %}
+        <img src = "https://s3.amazonaws.com/{{BUCKET}}/{{S3FileName}}" />
+    {% else %}
+    <div class="margin">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.barcode.label }}
+            {{ form.barcode(size=32) }}
+        </p>
+        <p>
+            {{ form.keyword.label }}
+            {{ form.keyword(size=32) }}
+        </p>
+        <p> {{ form.submit() }}
+        </p>
+    </form>
+    </div>
+    <br>
+    {% endif %}
+    {% if items %}
+        <h2>Search results:</h2>
+        <div id="search">
+            <table id="t02">
+            {% for item in items %}
+                {% if item.galleryURL!='http://thumbs1.ebaystatic.com/pict/04040_0.jpg' %}
+                    <tr>
+                    <td>
+                    <a href="{{ item.viewItemURL }}"><img src="{{ item.galleryURL }}" alt="{{ item.galleryURL }}"></a>
+                    </td>
+                    <td>{{item.title}}</td>
+                    <td>${{item.price}}
+                    <br>
+                    <form action="{{url_for('add_cart',item_title=item.title, item_price=item.price)}}" method="post">
+                        <input type="submit" value="add this item"/>
+                        <!--<input type="checkbox" name="checkbox{{ loop.index0 }}" value="{{ item.itemId }}"/> &ndash;&gt;-->
+                    </form>
+                    </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

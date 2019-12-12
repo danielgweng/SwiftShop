@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h3>Hi, {{ current_user.username }}! Welcome to the Barcode Scanner Tool!</h3>
+
+    {% if history %}
+        <h2>Search history:</h2>
+        <body>
+            {% for event in history %}
+
+                <h3>{{event['SearchType']}}: {{event['Query']}} on {{event['TimeStamp']}} </h3>
+                
+                <table id="t02">
+                    {% for item in event['Items'] %}
+                        {% if item['galleryURL']!='http://thumbs1.ebaystatic.com/pict/04040_0.jpg' %}
+                        <tr>
+                            <td><a href="{{ item['viewItemURL'] }}"><img src="{{ item['galleryURL'] }}" alt="{{ item['galleryURL'] }}"></a></td>
+                            <td>
+                            <h3>{{item['title'][:32]}}</h3>
+                            <br>
+                            ${{item['price']}}
+                            <br>
+                            <form action="{{url_for('add_cart',item_title=item.title, item_price=item.price)}}" method="post">
+                                <input type="submit" value="add this item"/>
+                                <!--<input type="checkbox" name="checkbox{{ loop.index0 }}" value="{{ item.itemId }}"/> &ndash;&gt;-->
+                            </form>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                </table>
+        </body>
+    {% endif %}
+{% endblock %}
